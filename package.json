@@ -1,6 +1,6 @@
 {
   "name": "@h1deya/mcp-server-weather",
-  "version": "0.0.10",
+  "version": "0.0.13",
   "description": "MCP server for weather forecast and severe weather alerts",
   "license": "CC-BY-4.0",
   "keywords": [
