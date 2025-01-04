@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Ref: https://modelcontextprotocol.io/quickstart
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
@@ -40,7 +42,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: "get-alerts",
-        description: "Get weather alerts for a state",
+        description: "Get weather alerts for a state in the U.S.",
         inputSchema: {
           type: "object",
           properties: {
@@ -54,7 +56,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: "get-forecast",
-        description: "Get weather forecast for a location",
+        description: "Get weather forecast for a location in the U.S.",
         inputSchema: {
           type: "object",
           properties: {

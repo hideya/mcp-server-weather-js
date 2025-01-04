@@ -1,15 +1,22 @@
 {
   "name": "@h1deya/mcp-server-weather",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "MCP server for weather forecast and severe weather alerts",
   "license": "CC-BY-4.0",
   "keywords": [
-    "MCP",
-    "Model Context Protocol",
+    "modelcontextprotocolmcp",
+    "mcp",
     "weather"
   ],
   "author": "",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hideya/weather-mcp-server.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "bin": {
     "mcp-server-weather": "dist/index.js"
   },

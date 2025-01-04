@@ -1,25 +1,25 @@
-# Simple Weather MCP Server example from Quickstart
+# Simple Weather MCP Server example from Quickstart [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/) [![npm version](https://img.shields.io/npm/v/@h1deya/mcp-server-weather.svg)](https://www.npmjs.com/package/@h1deya/mcp-server-weather)
 
-Node.js server implementing Model Context Protocol (MCP) for accessing weather information.
+Node.js server implementing
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+for accessing weather information in the U.S.
 
 This is an example explained in [MCP Quickstart](https://modelcontextprotocol.io/quickstart).
+
+It has been hosted as an [npm package](https://www.npmjs.com/package/@h1deya/mcp-server-weather)
+for easy use with `npx`.
 
 ## Original Author and License
 
 This example is based on the code explained in [MCP Quickstart](https://modelcontextprotocol.io/quickstart)
 ([github](https://github.com/modelcontextprotocol/docs)),
 whose license is [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
-Since any other license is specified, the same license is applied,
-even though it is said not to be suitable for software.
+Because no other license is specified, the same license is applied,
+even though it is said not to be suitable for software...
 
-## How to build
+## Usage with Claude Desktop
 
-```bash
-npm install
-npm run build
-```
-
-## Claude for Desktop configuration
+Add the following to your `claude_desktop_config.json`:
 
 ```
 # MacOS/Linux
@@ -32,11 +32,28 @@ code $env:AppData\Claude\claude_desktop_config.json
 {
   "mcpServers": {
     "weather": {
-      "command": "node",
-      "args": [
-        "/ABSOLUTE/PATH/TO/THIS/FOLDER/dist/index.js"
-      ]
+      "command": "npx",
+        "args": [
+            "-y",
+            "@h1deya/mcp-server-weather"
+        ],
     }
   }
 }
 ```
+
+## Tools
+
+- **get-alerts**
+  - Get weather alerts for a state in the U.S.
+  - Input: `state` (string): Two-letter state code (e.g. CA, NY)
+- **get-forecast**
+  - Get weather forecast for a location in the U.S.
+  - Inputs:
+    - `path` (number): Latitude of the location
+    - `content` (number): Longitude of the location
+
+## Example Queries
+
+- "What's the weather like in Cupertino?"
+- "Is there a weather alert in California?"
