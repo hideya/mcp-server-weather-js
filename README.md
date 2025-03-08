@@ -38,7 +38,7 @@ code $env:AppData\Claude\claude_desktop_config.json
     "logging": {
       "command": "node",
       "args": [
-        "C:/Users/andyd/Repositories/mcp-server-logging/dist/index.js"
+        "C:/your-path/mcp-server-logging/dist/index.js"
       ]
     }
   }
@@ -85,35 +85,6 @@ The remote logging is configured to use:
 - Facility: McpLogger
 
 To modify these settings, edit the Graylog configuration in the `index.ts` file.
-
-## Human-AI Collaborative Workflow
-
-This MCP server is designed to enable a workflow where human engineers work alongside multiple Claude instances to build software collaboratively. The workflow is structured as follows:
-
-### Team Structure
-- 1-2 human engineers providing high-level guidance and review
-- 3-4 Claude instances with specialized roles:
-  - Business Analyst Claude: Requirements gathering and user story development
-  - UX Designer Claude: Interface design and user experience planning
-  - Front-End Developer Claude: Client-side implementation
-  - Back-End Developer Claude: Server-side implementation
-
-### Workflow Steps
-1. Humans define project goals and initial architecture
-2. Claude instances collaborate using the logging service to maintain shared context
-3. Each Claude instance uses the logging tool to record progress, decisions, and issues
-4. Humans review logs to monitor progress and provide guidance
-5. When implementation occurs, Claude instances create GitHub PRs for human review
-
-### Communication Protocol
-- Log entries serve as a persistent, asynchronous communication channel
-- Human engineers can review the logs to understand what each Claude instance is working on
-- Claude instances can check the logs to coordinate their work with other instances
-
-### Context Management
-- Critical decisions and context are preserved in the logs
-- Each Claude instance maintains its focus area but can access the shared log for coordination
-- The log format provides timestamps to track the sequence of events
 
 ## License
 
