@@ -103,7 +103,7 @@ try {
     graylog: {
       servers: [{ host: "graylog.fusiontech.global", port: 12201 }],
       hostname: "mcp-server-logging",
-      project: "agents",
+      project: "Agents",
       bufferSize: 1400, // Keep UDP packets under typical MTU size
       connectionTimeout: 10000, // 10 seconds
     },
@@ -140,7 +140,7 @@ try {
     source: 'mcp-server',
     event: 'startup-test',
     timestamp: new Date().toISOString(),
-    project: "agents",
+    project: "Agents",
     testProperty: "This is a test message to verify Graylog connectivity"
   });
   
