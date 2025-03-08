@@ -1,0 +1,78 @@
+[2025-03-08T09:13:02.577Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:13:02.580Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:13:02.585Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:13:02.589Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:13:02.587Z",
+    "project": "agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:13:02.591Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:13:14.468Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:13:14.471Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:13:14.477Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:13:14.480Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:13:14.477Z",
+    "project": "agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:13:14.481Z] [DEBUG] Graylog logger initialized successfully

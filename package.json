@@ -1,25 +1,25 @@
 {
-  "name": "@h1deya/mcp-server-weather",
-  "version": "0.1.2",
-  "description": "MCP server for weather forecast and severe weather alerts in the US",
+  "name": "mcp-server-logging",
+  "version": "0.1.0",
+  "description": "MCP server for handling log file entries",
   "license": "MIT",
   "keywords": [
     "modelcontextprotocol",
     "mcp",
     "mcp-server",
-    "weather"
+    "logging"
   ],
   "author": "",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hideya/mcp-server-weather-js.git"
+    "url": "git+https://github.com/yourusername/mcp-server-logging.git"
   },
   "engines": {
     "node": ">=18"
   },
   "bin": {
-    "mcp-server-weather": "dist/index.js"
+    "mcp-server-logging": "dist/index.js"
   },
   "files": [
     "dist"
@@ -31,11 +31,19 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.3",
+    "winston": "^3.17.0",
+    "winston-graylog2": "^2.1.2",
+    "winston-transport": "^4.9.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^22",
     "shx": "^0.3.4",
     "typescript": "^5.7.2"
-  }
+  },
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/yourusername/mcp-server-logging/issues"
+  },
+  "homepage": "https://github.com/yourusername/mcp-server-logging#readme"
 }
