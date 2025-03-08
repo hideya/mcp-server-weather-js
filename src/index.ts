@@ -117,7 +117,18 @@ try {
   debugLog("Graylog configuration:", graylogOptions);
   
   // Create the Winston logger with both Graylog and debug transport
+  // Configure ALL formats to never use colors
+  const noColorsFormat = winston.format.printf(({ level, message, timestamp, ...rest }) => {
+    // Create a plain text log format with no colors
+    return `${timestamp || new Date().toISOString()} ${level}: ${message} ${Object.keys(rest).length ? JSON.stringify(rest) : ''}`;
+  });
+
   remoteLogger = winston.createLogger({
+    // Apply format to all transports to ensure no colors
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      noColorsFormat
+    ),
     transports: [
       // @ts-ignore - Ignoring type checking for Graylog2 transport
       new Graylog2(graylogOptions),
@@ -126,23 +137,16 @@ try {
     exitOnError: false // Don't crash on logging errors
   });
   
-  // Add a console transport for local visibility
-  remoteLogger.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple()
-    )
-  }));
+  // Add a console transport with explicit no-color format
+  remoteLogger.add(new winston.transports.Console());
+  
+  // Override winston's internal format methods if needed
+  process.env.NO_COLOR = 'true'; // Some libraries respect this environment variable
   
   // Test logging at startup to verify Graylog connection
-  debugLog("Sending test log message to Graylog...");
-  remoteLogger.info("Graylog connection test", {
-    source: 'mcp-server',
-    event: 'startup-test',
-    timestamp: new Date().toISOString(),
-    project: "Agents",
-    testProperty: "This is a test message to verify Graylog connectivity"
-  });
+  // Don't send the test message through Winston logging as it may interfere with MCP
+  // Instead, just log it directly to the debug file
+  debugLog("Skipping direct Graylog test message to avoid formatting issues");
   
   remoteLoggerInitialized = true;
   debugLog("Graylog logger initialized successfully");
@@ -150,20 +154,27 @@ try {
   debugLog("Failed to initialize Graylog logging:", error);
   debugLog("Continuing with local logging only");
   
-  // Create a fallback logger that only logs locally
+  // Create a fallback logger that only logs locally with explicit no-color format
+  const noColorsFormat = winston.format.printf(({ level, message, timestamp, ...rest }) => {
+    // Create a plain text log format with no colors
+    return `${timestamp || new Date().toISOString()} ${level}: ${message} ${Object.keys(rest).length ? JSON.stringify(rest) : ''}`;
+  });
+  
   remoteLogger = winston.createLogger({
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      noColorsFormat
+    ),
     transports: [
-      new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.colorize(),
-          winston.format.simple()
-        )
-      }),
+      new winston.transports.Console(),
       new winston.transports.File({ 
         filename: path.join(LOG_DIR, 'fallback.log')
       })
     ]
   });
+  
+  // Some libraries respect this environment variable
+  process.env.NO_COLOR = 'true';
 }
 
 // Define Zod schemas for validation
@@ -195,6 +206,10 @@ const server = new Server(
 
 // List available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
+  console.error("Handling tools/list request");
+  debugLog("Handling tools/list request");
+  
+  // Return immediately with tools list
   return {
     tools: [
       {
@@ -250,15 +265,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   };
 });
 
-// Helper function to write log entry
-function writeLogEntry(
+// Helper function to write log entry - with non-blocking Graylog logging
+async function writeLogEntry(
   level: LogLevel,
   message: string,
   timestamp?: string,
   logFile?: string
-): { success: boolean; error?: string; graylogSuccess?: boolean } {
+): Promise<{ success: boolean; error?: string; graylogSuccess?: boolean }> {
   const logTimestamp = timestamp || new Date().toISOString();
-  let graylogSuccess = false;
   
   try {
     const logFilePath = logFile
@@ -274,74 +288,58 @@ function writeLogEntry(
     // Log entry written to file successfully
     debugLog(`Log entry written to file: ${logFilePath}`);
     
-    // Attempt to log to Graylog with additional metadata
-    try {
-      const winstonLevel = logLevelMapping[level];
-      const metadata = {
-        timestamp: logTimestamp,
-        level: level,
-        source: 'mcp-server',
-        project: "agents",
-        file_logged: true,
-        hostname: require('os').hostname(),
-        pid: process.pid,
-        user_message: message  // Ensure message is included in metadata too
-      };
-      
-      debugLog(`Sending to Graylog: [${winstonLevel}] ${message}`, metadata);
-      
-      // Use a promise to track when the log is actually processed
-      const logPromise = new Promise((resolve, reject) => {
-        remoteLogger.log(winstonLevel, message, metadata, (err: any, level: any, msg: any, meta: any) => {
-          if (err) {
-            debugLog("Graylog callback error:", err);
-            reject(err);
-          } else {
-            debugLog("Graylog callback success:", { level, msg, meta });
-            resolve({ level, msg, meta });
-          }
-        });
-      });
-      
-      // Set a timeout for the log operation
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error("Graylog logging timed out after 5 seconds")), 5000);
-      });
-      
-      // Wait for either the log to complete or timeout
-      Promise.race([logPromise, timeoutPromise])
-        .then(() => {
-          graylogSuccess = true;
-          debugLog("Graylog logging completed successfully");
-        })
-        .catch((error) => {
-          debugLog("Error or timeout in Graylog logging:", error);
-        });
-      
-      // Don't wait for the promise to resolve before continuing
-      graylogSuccess = true;
-    } catch (graylogError) {
-      debugLog("Error logging to Graylog:", graylogError);
-      // Continue even if Graylog logging fails - the file-based log already succeeded
-    }
+    // Fire-and-forget approach for Graylog - don't block the response
+    const winstonLevel = logLevelMapping[level];
+    const metadata = {
+      timestamp: logTimestamp,
+      level: level,
+      source: 'mcp-server',
+      project: "Agents", // Using 'Agents' with capital A as requested
+      file_logged: true,
+      hostname: require('os').hostname(),
+      pid: process.pid,
+      user_message: message
+    };
     
-    return { success: true, graylogSuccess };
+    debugLog(`Sending to Graylog (non-blocking): [${winstonLevel}] ${message}`);
+    
+    // Don't await this Promise - let it run in the background
+    setTimeout(() => {
+      remoteLogger.log(winstonLevel, message, metadata, (err: any) => {
+        if (err) {
+          debugLog("Graylog callback error:", err);
+        } else {
+          debugLog("Graylog callback success");
+        }
+      });
+    }, 0);
+    
+    // Return success immediately without waiting for Graylog
+    return { 
+      success: true, 
+      graylogSuccess: true // Optimistically assume success since we're not waiting
+    };
   } catch (error) {
     debugLog("Error writing log entry:", error);
     return {
       success: false,
-      graylogSuccess,
+      graylogSuccess: false,
       error: error instanceof Error ? error.message : String(error),
     };
   }
 }
 
-// Helper function to read log entries
-function readLogEntries(
+// Helper function to read log entries - now using async/await
+async function readLogEntries(
   maxEntries: number,
   level?: LogLevel,
   logFile?: string
-): { entries: string[]; success: boolean; error?: string } {
+): Promise<{ entries: string[]; success: boolean; error?: string }> {
+  // Helper function to strip ANSI color codes from log entries
+  function stripAnsiCodes(str: string): string {
+    // Regex for ANSI color codes
+    return str.replace(/\u001b\[\d+m/g, '');
+  }
   try {
     const logFilePath = logFile
       ? path.resolve(LOG_DIR, logFile)
@@ -368,7 +366,10 @@ function readLogEntries(
     // Get the most recent entries up to maxEntries
     const recentEntries = filteredLines.slice(-maxEntries);
     
-    return { entries: recentEntries, success: true };
+    // Strip any ANSI color codes from the entries
+    const cleanEntries = recentEntries.map(stripAnsiCodes);
+    
+    return { entries: cleanEntries, success: true };
   } catch (error) {
     console.error("Error reading log entries:", error);
     return {
@@ -381,6 +382,8 @@ function readLogEntries(
 
 // Handle resources/list request
 server.setRequestHandler(ListResourcesRequestSchema, async () => {
+  console.error("Handling resources/list request");
+  debugLog("Handling resources/list request");
   return {
     resources: [] // We don't provide any resources
   };
@@ -389,78 +392,138 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
 // Handle tool execution
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
+  console.error(`Handling tools/call request for ${name}`);
+  debugLog(`Handling tools/call request for ${name}`);
 
   try {
     if (name === "write-log") {
       const { level, message, timestamp, logFile } = WriteLogArgumentsSchema.parse(args);
       
       debugLog("Processing write-log request", { level, message });
-      const result = writeLogEntry(level, message, timestamp, logFile);
       
-      if (!result.success) {
+      // Do the file logging right away
+      const logTimestamp = timestamp || new Date().toISOString();
+      const logFilePath = logFile ? path.resolve(LOG_DIR, logFile) : DEFAULT_LOG_FILE;
+      const logEntry = `[${logTimestamp}] [${level}] ${message}\n`;
+      
+      try {
+        fs.appendFileSync(logFilePath, logEntry, "utf8");
+        debugLog(`Log entry written to file: ${logFilePath}`);
+        
+        // Fire-and-forget the Graylog logging - don't wait for it at all
+        setImmediate(() => {
+          try {
+            const winstonLevel = logLevelMapping[level];
+            remoteLogger.log(winstonLevel, message, {
+              timestamp: logTimestamp,
+              level: level,
+              source: 'mcp-server',
+              project: "Agents"
+            });
+          } catch (e) {
+            // Swallow errors completely - don't even log them as they might slow things down
+          }
+        });
+        
+        debugLog("Immediately returning success response");
         return {
           content: [
             {
               type: "text",
-              text: `Failed to write log entry: ${result.error}`,
+              text: `Successfully wrote log entry with level ${level}.`,
+            },
+          ],
+        };
+      } catch (error) {
+        debugLog("Error writing to log file:", error);
+        return {
+          content: [
+            {
+              type: "text",
+              text: `Failed to write log entry: ${error instanceof Error ? error.message : String(error)}`,
             },
           ],
         };
       }
-      
-      const graylogStatus = result.graylogSuccess
-        ? "Remote logging to Graylog is active."
-        : "Note: Log written to file but Graylog logging failed.";
-      
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Successfully wrote log entry with level ${level}. ${graylogStatus}\nCheck ${GRAYLOG_DEBUG_FILE} for detailed Graylog connection information.`,
-          },
-        ],
-      };
     } else if (name === "read-logs") {
       const { maxEntries, level, logFile } = ReadLogsArgumentsSchema.parse(args);
       
-      const result = readLogEntries(maxEntries, level, logFile);
+      debugLog("Processing read-logs request");
       
-      if (!result.success) {
+      // Keep the read operation simple and direct
+      try {
+        const logFilePath = logFile ? path.resolve(LOG_DIR, logFile) : DEFAULT_LOG_FILE;
+        
+        // Check if the log file exists
+        if (!fs.existsSync(logFilePath)) {
+          return {
+            content: [
+              {
+                type: "text",
+                text: `Log file not found: ${logFilePath}`,
+              },
+            ],
+          };
+        }
+        
+        // Read the log file
+        const fileContent = fs.readFileSync(logFilePath, "utf8");
+        const logLines = fileContent.split("\n").filter((line) => line.trim() !== "");
+        
+        // Filter by level if specified
+        const filteredLines = level
+          ? logLines.filter((line) => line.includes(`[${level}]`))
+          : logLines;
+        
+        // Get the most recent entries up to maxEntries
+        const recentEntries = filteredLines.slice(-maxEntries);
+        
+        if (recentEntries.length === 0) {
+          return {
+            content: [
+              {
+                type: "text",
+                text: "No log entries found matching criteria",
+              },
+            ],
+          };
+        }
+        
+        // Format as plain text with no color codes
+        // Helper function to strip ANSI color codes from log entries
+        const stripAnsiCodes = (str: string): string => {
+          // Regex for ANSI color codes
+          return str.replace(/\u001b\[\d+m/g, '');
+        };
+        
+        const cleanEntries = recentEntries.map(stripAnsiCodes);
+        const logsText = `Recent log entries:\n\n${cleanEntries.join("\n")}`;        
+        
+        debugLog("Returning log entries");
         return {
           content: [
             {
               type: "text",
-              text: `Failed to read log entries: ${result.error}`,
+              text: logsText,
             },
           ],
         };
-      }
-      
-      if (result.entries.length === 0) {
+      } catch (error) {
+        debugLog("Error reading log file:", error);
         return {
           content: [
             {
               type: "text",
-              text: "No log entries found matching criteria",
+              text: `Failed to read log entries: ${error instanceof Error ? error.message : String(error)}`,
             },
           ],
         };
       }
-      
-      const logsText = `Recent log entries:\n\n${result.entries.join("\n")}`;
-      
-      return {
-        content: [
-          {
-            type: "text",
-            text: logsText,
-          },
-        ],
-      };
     } else {
       throw new Error(`Unknown tool: ${name}`);
     }
   } catch (error) {
+    debugLog("Error handling request:", error);
     if (error instanceof z.ZodError) {
       throw new Error(
         `Invalid arguments: ${error.errors
@@ -472,31 +535,27 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
-// Start the server
+// Start the server with super-simplified startup
 async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Logging MCP Server running on stdio");
-  
   try {
-    // Log server startup to Graylog
-    debugLog("Sending startup message to Graylog");
-    remoteLogger.info("Logging MCP Server started", {
-      source: 'mcp-server',
-      event: 'startup',
-      timestamp: new Date().toISOString(),
-      project: "agents",
-      pid: process.pid,
-      nodeVersion: process.version
-    });
-    debugLog("Remote logging to Graylog initialized");
+    // Be very verbose with logging to help diagnose issues
+    console.error("Starting MCP logging server...");
     
-    // Do another test with different winston methods to see if any work
-    remoteLogger.warn("Test warning message", { event: 'test-warning' });
-    remoteLogger.error("Test error message", { event: 'test-error' });
+    const transport = new StdioServerTransport();
+    console.error("Initializing transport...");
+    
+    // Connect to the transport
+    await server.connect(transport);
+    
+    console.error("MCP Logging Server running on stdio");
+    debugLog("Server started - ready to handle requests");
+    
+    // Don't even attempt Graylog logging on startup to avoid any delays
+    console.error("Skip initial Graylog logging for faster startup");
   } catch (error) {
-    debugLog("Failed to initialize Graylog logging:", error);
-    debugLog("Continuing with local logging only");
+    console.error("Fatal error starting MCP server:", error);
+    debugLog("Failed to initialize MCP server:", error);
+    process.exit(1);
   }
 }
 
