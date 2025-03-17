@@ -30,6 +30,8 @@ code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Windows
 code $env:AppData\Claude\claude_desktop_config.json
+Or
+Could be accessible from Claude Desktop menu File -> Settings -> Developer "Edit Config" button will open up config file.
 ```
 
 ```json
