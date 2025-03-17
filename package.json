@@ -27,10 +27,13 @@
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
     "prepare": "npm run build",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "docker:build": "docker build -t mcp-server-logging .",
+    "docker:run": "docker run -it mcp-server-logging"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.3",
+    "mcp-server-logging": "file:",
     "winston": "^3.17.0",
     "winston-graylog2": "^2.1.2",
     "winston-transport": "^4.9.0",
