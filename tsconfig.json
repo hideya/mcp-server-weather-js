@@ -8,12 +8,13 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
   "include": [
     "src/**/*"
-  ],
+, "src/index.ts"  ],
   "exclude": [
     "node_modules"
   ]

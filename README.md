@@ -1,19 +1,28 @@
-# Simple Weather MCP Server example from Quickstart [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/hideya/mcp-server-weather-js/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@h1deya/mcp-server-weather.svg)](https://www.npmjs.com/package/@h1deya/mcp-server-weather)
+# MCP Server for Logging
 
-Node.js server implementing
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
-for accessing weather information in the US.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/yourusername/mcp-server-logging/blob/main/LICENSE)
 
-This is an example explained in [MCP Quickstart](https://modelcontextprotocol.io/quickstart).
+Node.js server implementing [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) for handling log file entries. This server allows Claude to write and read log entries on behalf of clients.
 
-It has been hosted as an [npm package](https://www.npmjs.com/package/@h1deya/mcp-server-weather)
-for convenient use with `npx`.
+## Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/mcp-server-logging.git
+cd mcp-server-logging
+npm install
+```
+
+## Build
+
+```bash
+npm run build
+```
 
 ## Usage with Claude Desktop
 
-Merge the following JSON fragment into your `claude_desktop_config.json`.
-Please refer to the "Testing your server with Claude for Desktop" section of
-[MCP Quickstart](https://modelcontextprotocol.io/quickstart) for more details.
+Merge the following JSON fragment into your `claude_desktop_config.json`:
 
 ```
 # MacOS/Linux
@@ -21,17 +30,18 @@ code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 # Windows
 code $env:AppData\Claude\claude_desktop_config.json
+Or
+Could be accessible from Claude Desktop menu File -> Settings -> Developer "Edit Config" button will open up config file.
 ```
 
 ```json
 {
   "mcpServers": {
-    "weather": {
-      "command": "npx",
-        "args": [
-            "-y",
-            "@h1deya/mcp-server-weather"
-        ],
+    "logging": {
+      "command": "node",
+      "args": [
+        "C:/your-path/mcp-server-logging/dist/index.js"
+      ]
     }
   }
 }
@@ -39,26 +49,45 @@ code $env:AppData\Claude\claude_desktop_config.json
 
 ## Tools
 
-- **get-alerts**
-  - Get weather alerts for a US state.
-  - Input: `state` (string): Two-letter US state code (e.g. CA, NY)
-- **get-forecast**
-  - Get weather forecast for a location in the US
+- **write-log**
+  - Write a log entry to a file
   - Inputs:
-    - `path` (number): Latitude of the location
-    - `content` (number): Longitude of the location
+    - `level` (string, optional): Log level (INFO, WARN, ERROR, DEBUG) - Default: INFO
+    - `message` (string, required): Log message content
+    - `timestamp` (string, optional): Custom timestamp (ISO format) - Default: Current time
+    - `logFile` (string, optional): Custom log file name - Default: application.log
+
+- **read-logs**
+  - Read recent log entries from a file
+  - Inputs:
+    - `logFile` (string, optional): Custom log file name - Default: application.log
+    - `maxEntries` (number, optional): Maximum number of log entries to return - Default: 10
+    - `level` (string, optional): Filter logs by level
 
 ## Example Queries
 
-- Tomorrow's weather in Palo Alto?
-- Any weather alerts in California?
+- Write a log entry about a system startup
+- Record an error that occurred in the application
+- Show me the most recent 5 log entries
+- Are there any ERROR level logs today?
 
-## Original Author and License
+## Logging
 
-This example is based on the code explained in [MCP Quickstart](https://modelcontextprotocol.io/quickstart)
-([github](https://github.com/modelcontextprotocol/docs)),
-whose license is [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
-The completed code examples are also hosted in
-[this repo](https://github.com/modelcontextprotocol/quickstart-resources),
-whose license is MIT (Copyright (c) 2025 Model Context Protocol).
-So I've chosen the MIT license for this repo.
+### Local Log Files
+
+Log files are stored in the `logs` directory within the project. The default log file is `application.log`.
+
+### Remote Logging with Graylog
+
+This MCP server includes remote logging to a Graylog server. Log entries are automatically sent to both the local log file and the remote Graylog server.
+
+The remote logging is configured to use:
+- Host: graylog.fusiontech.global
+- Port: 12201
+- Facility: McpLogger
+
+To modify these settings, edit the Graylog configuration in the `index.ts` file.
+
+## License
+
+MIT

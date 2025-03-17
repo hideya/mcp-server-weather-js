@@ -1,0 +1,559 @@
+[2025-03-08T09:13:02.577Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:13:02.580Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:13:02.585Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:13:02.589Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:13:02.587Z",
+    "project": "agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:13:02.591Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:13:14.468Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:13:14.471Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:13:14.477Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:13:14.480Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:13:14.477Z",
+    "project": "agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:13:14.481Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:28:49.559Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:28:49.563Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:28:49.568Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:28:49.570Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:28:49.569Z",
+    "project": "Agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:28:49.572Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:28:59.863Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:28:59.866Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:28:59.871Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:28:59.874Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:28:59.872Z",
+    "project": "Agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:28:59.875Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:56:43.605Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:56:43.607Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:56:43.613Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:56:43.616Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:56:43.614Z",
+    "project": "Agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:56:43.618Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:58:46.937Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:58:46.940Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:58:46.945Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:58:46.948Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:58:46.945Z",
+    "project": "Agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:58:46.949Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T09:59:01.038Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T09:59:01.042Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T09:59:01.067Z] [DEBUG] Sending test log message to Graylog...
+[2025-03-08T09:59:01.070Z] [DEBUG] Winston log call: {
+  "level": "info",
+  "message": "Graylog connection test",
+  "metadata": {
+    "source": "mcp-server",
+    "event": "startup-test",
+    "timestamp": "2025-03-08T09:59:01.068Z",
+    "project": "Agents",
+    "testProperty": "This is a test message to verify Graylog connectivity",
+    "level": "info",
+    "message": "Graylog connection test"
+  }
+}
+[2025-03-08T09:59:01.073Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:06:09.612Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:06:09.615Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:06:09.621Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:06:09.622Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:07:07.243Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:07:07.247Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:07:07.254Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:07:07.255Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:07:18.883Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:07:18.888Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:07:18.897Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:07:18.898Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:27:39.077Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:27:39.080Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:27:39.089Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:27:39.089Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:27:49.645Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:27:49.649Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:27:49.658Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:27:49.659Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:45:36.630Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:45:36.633Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:45:36.643Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:45:36.644Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:45:50.347Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:45:50.353Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:45:50.362Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:45:50.363Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:47:44.965Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:47:44.968Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:47:44.985Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:47:44.986Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T10:47:56.676Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T10:47:56.680Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T10:47:56.694Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T10:47:56.698Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T11:06:06.222Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T11:06:06.226Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T11:06:06.234Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T11:06:06.235Z] [DEBUG] Graylog logger initialized successfully
+[2025-03-08T11:06:17.418Z] [DEBUG] Setting up Graylog connection...
+[2025-03-08T11:06:17.422Z] [DEBUG] Graylog configuration: {
+  "name": "Graylog",
+  "level": "info",
+  "silent": false,
+  "handleExceptions": true,
+  "graylog": {
+    "servers": [
+      {
+        "host": "graylog.fusiontech.global",
+        "port": 12201
+      }
+    ],
+    "hostname": "mcp-server-logging",
+    "project": "Agents",
+    "bufferSize": 1400,
+    "connectionTimeout": 10000
+  },
+  "staticMeta": {
+    "application": "mcp-logging-service",
+    "environment": "development"
+  },
+  "debug": true
+}
+[2025-03-08T11:06:17.431Z] [DEBUG] Skipping direct Graylog test message to avoid formatting issues
+[2025-03-08T11:06:17.432Z] [DEBUG] Graylog logger initialized successfully
