@@ -13,7 +13,7 @@ for convenient use with `npx`.
 
 Merge the following JSON fragment into your `claude_desktop_config.json`.
 Please refer to the "Testing your server with Claude for Desktop" section of
-[MCP Quickstart](https://modelcontextprotocol.io/quickstart) for more details.
+[MCP Quickstart](https://modelcontextprotocol.io/quickstart) for details.
 
 ```
 # MacOS/Linux
@@ -45,8 +45,8 @@ code $env:AppData\Claude\claude_desktop_config.json
 - **get-forecast**
   - Get weather forecast for a location in the US
   - Inputs:
-    - `path` (number): Latitude of the location
-    - `content` (number): Longitude of the location
+    - `latitude` (number): Latitude of the location
+    - `longitude` (number): Longitude of the location
 
 ## Example Queries
 
